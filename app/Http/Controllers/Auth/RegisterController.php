@@ -58,20 +58,16 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
+     * Assign the role for user and give permission for each user
      * @param  array  $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        // $role = Role::find(2);
-        // $permission = PermissionSeeder::find(3);
-        // $role->givePermissionTo($permission);
-        // $permission->assignRole($role);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+        ])->assignRole('user')->givePermissionTo('product-list');
     }
 }

@@ -20,7 +20,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/add-product', [App\Http\Controllers\ProductController::class, 'addProduct'])->name('add-product');
+Route::get('/add-product', [App\Http\Controllers\ProductController::class, 'addProduct'])->name('add-product')->middleware('role:admin');
 
 Route::post('/insert-product', [App\Http\Controllers\ProductController::class, 'insertProduct'])->name('insert-product');
 

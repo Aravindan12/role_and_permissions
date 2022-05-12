@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use Auth;
 class ProductController extends Controller
 {
     /**
@@ -22,13 +22,19 @@ class ProductController extends Controller
     }
     /**
      * adding new product by only who has add-product permission
+     * added policy while insert a record in db to check admin is creating else abort
      */
     public function insertProduct(Request $request){
-        $product = new Product();
-        $product->name = $request->name;
-        $product->detail = $request->detail;
-        $product->save();
-        return redirect()->route('product-list');
+        if ($request->user()->can('create',Product::class)) {
+            $product = new Product();
+            $product->user_id = Auth::id();
+            $product->name = $request->name;
+            $product->detail = $request->detail;
+            $product->save();
+            return redirect()->route('product-list');
+        }else{
+            abort(403);
+        }
     }
     /**
      * Listing all product it can be accessed by all
@@ -43,5 +49,22 @@ class ProductController extends Controller
     public function productDelete($id){
         Product::where('id',$id)->delete();
         return redirect()->route('product-list');
+    }
+    /**
+     * View product by only who has add-product permission
+     * Added a policy while showing a single product can able to see only the product added by the user
+     */
+    public function show($id){
+        // get current logged in user
+        $user = Auth::user();
+        
+        // load product
+        $product = Product::find($id);
+      
+        if ($user->can('view', $product)) {
+            return view('single_product_list',compact('product'));
+        }else{
+            abort(403);
+        }
     }
 }

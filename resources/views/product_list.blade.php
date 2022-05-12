@@ -12,6 +12,7 @@
                     <th scope="col">Product Name</th>
                     <th scope="col">Product Details</th>
                     <th scope="col">Action</th>
+                    <th scope="col">View</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,7 @@
                     <td>{{$detail->name}}</td>
                     <td>{{$detail->detail}}</td>
                     <td><a href="product-delete/{{$detail->id}}">Delete</a></td>
+                    <td><a href="product-view/{{$detail->id}}">View</a></td>
                   </tr>
                 </tbody>
               </table>

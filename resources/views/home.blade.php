@@ -15,6 +15,17 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    {{-- Used gate to define admin and user have different login content --}}
+                    @can('isAdmin')
+                    <div class="btn btn-success btn-lg">
+                      You have Admin Access
+                    </div>
+                    @else
+                        <div class="btn btn-info btn-lg">
+                        You have User Access
+                        </div>
+                    @endcan
+
                 </div>
             </div>
         </div>

@@ -7,26 +7,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About Roles and Permission
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Laravel roles and permission is simple creating roles to the user and give permission to the respective roles.To achieve this we need to some steps
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Add a spatie package for roles and permissions.
+- Run Migrate command.
+- Create a role seeder and insert it into roles table and also create permission seeder and insert it into permission table.
+- Here in my example i added an admin seeder and assign role as admin and gave permission name which have all access.
+- While new user register assigned the user role and give permission name.
+- Added a controller middleware, to access a particular function the user should have permission.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Using this we will provide a perfect authorization but in my example the roles and permission are static added in seeder we can also make as dynamic by creating seperate page to create assign roles and permission.
+## About Gates and policies
 
-## Learning Laravel
+Laravel gates and policies are also used for authorization but in another way. The gates are pre installed facade using this we can also authorize an user.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
+ - Define a gate in authservice provider and write the condition should satisfy.
+ - Use the required gate methods like allows and not allowes in controller.
+ - You can also check it in blade also by can methods to access the particular work by the defined user.
+ - In policies create a respective policy for athe model using artisan command and register it in Authservice provider.
+ - Policy file will create under the policy folder in app directory use can add the condition in each function which pre defined in policy file like create, update,delete,view.
+ - Add the can method condition in controller by sending required model to policy.
 ## Laravel Sponsors
 
 We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).

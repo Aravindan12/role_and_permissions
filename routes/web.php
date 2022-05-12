@@ -27,3 +27,5 @@ Route::post('/insert-product', [App\Http\Controllers\ProductController::class, '
 Route::get('/product-list', [App\Http\Controllers\ProductController::class, 'productList'])->name('product-list');
 
 Route::get('/product-delete/{id}', [App\Http\Controllers\ProductController::class, 'productDelete'])->name('product-delete');
+
+Route::get('/product-view/{id}', [App\Http\Controllers\ProductController::class, 'show'])->name('product-view');
